@@ -114,7 +114,8 @@ func Execute(request *Request) (*Response, error) {
 	}
 
 	// Set the connection timeout for current request
-	httpClient.Timeout = time.Duration(request.Timeout()) * time.Second
+	// @todo 非线程安全
+	// httpClient.Timeout = time.Duration(request.Timeout()) * time.Second
 
 	// Set the request method
 	httpRequest.Method = request.Method()
