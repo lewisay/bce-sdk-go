@@ -3,6 +3,12 @@
 # 变更记录
 - http/client.go Execute->httpClient.Timeout 非线程安全操作
 
+# 使用说明
+在 go.mod 中新增
+
+require github.com/baidubce/bce-sdk-go version(版本号)
+replace github.com/baidubce/bce-sdk-go => github.com/lewisay/bce-sdk-go version(版本号)
+
 # 概述
 
 本文档主要介绍百度云Go语言版的开发者工具包（SDK），用户可基于该SDK使用Go语言接入百度云的各项产品（详见支持产品列表）。SDK封装了便捷的调用接口，保持了多种编程语言版的使用方式、调用接口相似，提供了统一的错误码和返回格式，方便开发者调试。
