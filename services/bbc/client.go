@@ -501,6 +501,16 @@ func (c *Client) ListDeploySets() (*ListDeploySetsResult, error) {
 	return ListDeploySets(c)
 }
 
+// ListDeploySets - list all deploy sets
+// PARAMS:
+//     - args: the arguments to filter
+// RETURNS:
+//     - *ListDeploySetsResult: the result of list all deploy sets
+//     - error: nil if success otherwise the specific error
+func (c *Client) ListDeploySetsPage(args *ListDeploySetsArgs) (*ListDeploySetsResult, error) {
+	return ListDeploySetsPage(c, args)
+}
+
 // GetDeploySet - get details of the deploy set
 //
 // PARAMS:
@@ -639,6 +649,28 @@ func (c *Client) GetCustomImage(args *GetFlavorImageArgs) (*GetImagesResult, err
 	return GetCustomImage(c, body)
 }
 
+// ShareImage - share an image
+//
+// PARAMS:
+//     - imageId: the specific image ID
+//     - args: the arguments to share an image
+// RETURNS:
+//     - error: nil if success otherwise the specific error
+func (c *Client) ShareImage(imageId string, args *SharedUser) error {
+	return ShareImage(c, imageId, args)
+}
+
+// UnShareImage - cancel share an image
+//
+// PARAMS:
+//     - imageId: the specific image ID
+//     - args: the arguments to cancel share an image
+// RETURNS:
+//     - error: nil if success otherwise the specific error
+func (c *Client) UnShareImage(imageId string, args *SharedUser) error {
+	return UnShareImage(c, imageId, args)
+}
+
 // GetInstanceEni - get the eni of the bbc instance
 //
 // PARAMS:
@@ -734,7 +766,6 @@ func (c *Client) GetRepairTaskRecord(args *TaskIdArgs) (*GetRepairRecords, error
 	}
 	return GetRepairTaskReocrd(c, body)
 }
-
 
 // ListRule - list the repair plat rules
 //

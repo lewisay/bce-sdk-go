@@ -337,6 +337,17 @@ func TestListDeploySets(t *testing.T) {
 	ExpectEqual(t.Errorf, err, nil)
 }
 
+func TestListDeploySetsPage(t *testing.T) {
+	queryArgs := &ListDeploySetsArgs{
+		Strategy: "TOR_HA", // RACK_HA or TOR_HA
+		MaxKeys:  100,
+		Marker:   "your-marker",
+	}
+	rep, err := BBC_CLIENT.ListDeploySetsPage(queryArgs)
+	fmt.Println(rep)
+	ExpectEqual(t.Errorf, err, nil)
+}
+
 func TestGetDeploySet(t *testing.T) {
 	testDeploySetID := BBC_TestDeploySetId
 	rep, err := BBC_CLIENT.GetDeploySet(testDeploySetID)
@@ -417,6 +428,22 @@ func TestGetCustomImage(t *testing.T) {
 	} else {
 		fmt.Println("Get specific flavor common image success, result: ", res)
 	}
+}
+
+func TestShareImage(t *testing.T) {
+	args := &SharedUser{
+		AccountId: "id",
+	}
+	err := BBC_CLIENT.ShareImage(BBC_TestImageId, args)
+	ExpectEqual(t.Errorf, err, nil)
+}
+
+func TestUnShareImage(t *testing.T) {
+	args := &SharedUser{
+		AccountId: "id",
+	}
+	err := BBC_CLIENT.UnShareImage(BBC_TestImageId, args)
+	ExpectEqual(t.Errorf, err, nil)
 }
 
 func TestGetInstanceEni(t *testing.T) {
@@ -552,9 +579,9 @@ func TestEnableRule(t *testing.T) {
 
 func TestBatchCreateAutoRenewRules(t *testing.T) {
 	bccAutoRenewArgs := &BbcCreateAutoRenewArgs{
-		InstanceId: BBC_TestBbcId,
+		InstanceId:    BBC_TestBbcId,
 		RenewTimeUnit: "month",
-		RenewTime: 1,
+		RenewTime:     1,
 	}
 	err := BBC_CLIENT.BatchCreateAutoRenewRules(bccAutoRenewArgs)
 	ExpectEqual(t.Errorf, err, nil)
@@ -570,7 +597,7 @@ func TestBatchDeleteAutoRenewRules(t *testing.T) {
 
 func TestDeleteInstanceIngorePayment(t *testing.T) {
 	args := &DeleteInstanceIngorePaymentArgs{
-		InstanceId:      "i-htkPgy0d",
+		InstanceId:         "i-htkPgy0d",
 		RelatedReleaseFlag: false,
 	}
 	if res, err := BBC_CLIENT.DeleteInstanceIngorePayment(args); err != nil {

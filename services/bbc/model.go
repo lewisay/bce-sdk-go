@@ -77,7 +77,7 @@ type CreateInstanceArgs struct {
 	Tags              []model.TagModel `json:"tags,omitempty"`
 	InternalIps       []string         `json:"internalIps,omitempty"`
 	RequestToken      string           `json:"requestToken"`
-	EnableNuma        bool             `json:"enableNuma,omitempty"`
+	EnableNuma        bool             `json:"enableNuma"`
 }
 
 type Billing struct {
@@ -146,7 +146,7 @@ type ModifyInstanceDescArgs struct {
 type RebuildInstanceArgs struct {
 	ImageId        string `json:"imageId"`
 	AdminPass      string `json:"adminPass"`
-	IsPreserveData bool   `json:"isPreserveData,omitempty"`
+	IsPreserveData bool   `json:"isPreserveData"`
 	RaidId         string `json:"raidId,omitempty"`
 	SysRootSize    int    `json:"sysRootSize,omitempty"`
 }
@@ -333,7 +333,17 @@ type CreateDeploySetResult struct {
 	DeploySetId string `json:"deploySetId"`
 }
 
+type ListDeploySetsArgs struct {
+	Marker   string `json:"marker"`
+	MaxKeys  int    `json:"MaxKeys"`
+	Strategy string `json:"strategy"`
+}
+
 type ListDeploySetsResult struct {
+	Marker        string           `json:"marker"`
+	IsTruncated   bool             `json:"isTruncated"`
+	NextMarker    string           `json:"nextMarker"`
+	MaxKeys       int              `json:"maxKeys"`
 	DeploySetList []DeploySetModel `json:"deploySetList"`
 }
 
@@ -618,7 +628,7 @@ type BbcCreateAutoRenewArgs struct {
 }
 
 type BbcDeleteAutoRenewArgs struct {
-	InstanceId    string `json:"instanceId"`
+	InstanceId string `json:"instanceId"`
 }
 
 type DeleteInstanceIngorePaymentArgs struct {
@@ -629,11 +639,16 @@ type DeleteInstanceIngorePaymentArgs struct {
 }
 
 type DeleteInstanceModel struct {
-	InstanceId  string   `json:"instanceId"`
-	Eip         string   `json:"eip"`
+	InstanceId string `json:"instanceId"`
+	Eip        string `json:"eip"`
 }
 
 type DeleteInstanceResult struct {
 	SuccessResources *DeleteInstanceModel `json:"successResources"`
-	FailResources *DeleteInstanceModel `json:"failResources"`
+	FailResources    *DeleteInstanceModel `json:"failResources"`
+}
+
+type SharedUser struct {
+	AccountId string `json:"accountId,omitempty"`
+	Account   string `json:"account,omitempty"`
 }

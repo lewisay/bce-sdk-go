@@ -1,7 +1,7 @@
 # GO SDK 文档
 
 # 变更记录
--
+- http/client.go Execute->httpClient.Timeout 非线程安全操作
 
 # 概述
 
